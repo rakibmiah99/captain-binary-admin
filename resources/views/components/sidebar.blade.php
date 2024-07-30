@@ -62,6 +62,28 @@
             ]
         "/>
 
+
+    <x-menu-item-dropdown
+        bi-icon="bi-code"
+        :visibility="\App\Helper::HasPermissionMenu('role')"
+        :name="__('menu.problem_management')"
+        :active="$segment1 == 'problem'"
+        :child="[
+            [
+                'url' => route('problem.create'),
+                'name' => __('menu.add_new'),
+                'active' => $segment1 == 'problem' && $segment2 == 'create',
+                'visibility' => true,
+            ],
+            [
+                'visibility' => true,
+                'url' => route('problem.index'),
+                'active' => $segment1 == 'problem' && !isset($segment2),
+                'name' => __('menu.all_problems')
+            ]
+        ]
+    "/>
+
         <x-menu-item-dropdown
             bi-icon="bi-braces-asterisk"
             :visibility="\App\Helper::HasPermissionMenu('role')"

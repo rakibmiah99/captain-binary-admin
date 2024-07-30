@@ -12,6 +12,7 @@ use App\Models\Testimonial;
 use App\Services\CompanyService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class TestimonalController extends Controller
 {
@@ -21,6 +22,7 @@ class TestimonalController extends Controller
     }
 
     public function index(Request $request){
+        return view('problems.steps');
         $columns = array_keys(__('db.testimonial'));
         $data = Testimonial::filter()->paginate(Helper::PerPage())->withQueryString();
         return view('testimonial.index', compact('data', 'columns'));
@@ -52,12 +54,14 @@ class TestimonalController extends Controller
 
 
     public function store(TestimonialCreateRequest $request){
-        $data = collect($request->validated());
+        $data = collect($request->validated())
+        ->merge([
+            'img' => Helper::FileUpload(request_key: 'image', path: 'photos')
+        ])
+        ->except('image')
+        ->toArray();
         try {
-            $testimonial = Testimonial::create($data->except('image')->toArray());
-            if ($request->image){
-                $testimonial->addMediaFromRequest('image')->toMediaCollection();
-            }
+            $testimonial = Testimonial::create($data);
             return redirect()->back()->with('success', Helper::CreatedSuccessFully());
         }
         catch (\Exception $exception){
@@ -69,17 +73,20 @@ class TestimonalController extends Controller
 
     public function update($id, TestimonialUpdateRequest $request){
         $testimonial = Testimonial::find($id);
-        $data = collect($request->validated());
+        $data = collect($request->validated())
+        ->except('image');
+        
+        if($path = Helper::FileUpload(request_key: 'image', path: 'photos')){
+            $data = $data->merge(['img' => $path]);
+            Helper::RemoveFile($testimonial->img);
+        }
+        
         if (!$testimonial){
             abort(404);
         }
 
         try{
-            if ($request->image){
-                $testimonial->clearMediaCollection();
-                $testimonial->addMediaFromRequest('image')->toMediaCollection();
-            }
-            $testimonial->update($data->except('image')->toArray());
+            $testimonial->update($data->toArray());
             return redirect()->back()->with('success', Helper::UpdatedSuccessFully());
         }
         catch (\Exception $exception){
@@ -95,6 +102,7 @@ class TestimonalController extends Controller
                 abort(404);
             }
             $testimonial->delete();
+            Helper::RemoveFile($testimonial->img);
             return redirect()->back()->with('success', Helper::DeletedSuccessFully());
         }
         catch (\Exception $exception){

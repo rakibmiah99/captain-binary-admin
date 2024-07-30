@@ -35,6 +35,8 @@
         'email' => 'Email',
         'website' => 'Email',
         'name' => 'Name',
+        'name_field' => 'Name in (:lang)',
+        'details_field' => 'Details in (:lang)',
         'back' => 'Back',
         'create' => 'Create',
         'users' => 'Users',
@@ -55,5 +57,6 @@
         'designation' => 'Designation',
         'comments' => 'Comments',
         'testimonials' => 'Testimonials',
+        'dificulty_label' => 'Dificulty Label'
 
     ];

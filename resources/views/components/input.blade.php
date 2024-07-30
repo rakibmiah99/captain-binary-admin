@@ -88,7 +88,7 @@
                     @if($disabled) disabled @endif
                     class="form-control {{$size}}" name="{{$name}}"
                     type="{{$type}}"
-                    value="{{$value}}"
+                    value="{{$value ?? old($name)}}"
                     id="{{$name}}"
                     @if($min) min="{{$min}}" @endif
                     @if($max) max="{{$max}}" @endif
@@ -104,7 +104,7 @@
                     @if($max) max="{{$max}}" @endif
                     cols="{{$cols}}"
                     rows="{{$rows}}"
-            >{{$value}}</textarea>
+            >{{$value ?? old($name)}}</textarea>
             @endif
         </div>
     </div>

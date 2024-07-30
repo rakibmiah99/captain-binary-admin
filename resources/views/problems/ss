@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-Step Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step-active {
+    display: block;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.btn-prev {
+    background-color: #6c757d;
+}
+
+.btn-prev:hover {
+    background-color: #5a6268;
+}
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer>
+        // script.js
+$(document).ready(function () {
+    let currentStep = 1;
+
+    function showStep(step) {
+        $('.form-step').removeClass('form-step-active');
+        $('#step' + step).addClass('form-step-active');
+    }
+
+    $('.btn-next').click(function () {
+        let $currentStep = $('#step' + currentStep);
+        if ($currentStep.find('input').filter(function() { return !this.value; }).length === 0) {
+            currentStep++;
+            if (currentStep > 3) currentStep = 3; // Ensure not to go beyond the last step
+            showStep(currentStep);
+        } else {
+            alert('Please fill all required fields.');
+        }
+    });
+
+    $('.btn-prev').click(function () {
+        currentStep--;
+        if (currentStep < 1) currentStep = 1; // Ensure not to go below the first step
+        showStep(currentStep);
+    });
+
+    $('#multiStepForm').submit(function (e) {
+        e.preventDefault();
+        alert('Form submitted successfully!');
+        // You can handle form submission here, e.g., AJAX request
+    });
+
+    showStep(currentStep); // Show the first step initially
+});
+
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <form id="multiStepForm">
+            <!-- Step 1 -->
+            <div class="form-step form-step-active" id="step1">
+                <h2>Step 1: Personal Information</h2>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <button type="button" class="btn-next">Next</button>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="form-step" id="step2">
+                <h2>Step 2: Contact Information</h2>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+                <button type="button" class="btn-prev">Previous</button>
+                <button type="button" class="btn-next">Next</button>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="form-step" id="step3">
+                <h2>Step 3: Review & Submit</h2>
+                <p>Please review your information and submit.</p>
+                <button type="button" class="btn-prev">Previous</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -21,17 +21,12 @@ class CategoryUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rule = [
-            'name' => 'required|array',
-            'name.*' => 'string',
-            'details' => 'required|array',
-            'details.*' => 'string',
+        return [
+            'categoryName' => 'required|string',
+            'categoryName_bn'=> 'required|string',
+            'categoryDetails' => 'required|string',
+            'categoryDetails_bn' => 'required|string',
             'image' => 'nullable|mimes:jpeg,jpg,png,gif,svg|max:10000',
         ];
-        foreach (config('settings.language') as $lang=>$config){
-            $rule['name.'.$lang] = $config['required'] === true ? 'required' : 'nullable';
-            $rule['details.'.$lang] = $config['required'] === true ? 'required' : 'nullable';
-        }
-        return $rule;
     }
 }

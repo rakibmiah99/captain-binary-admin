@@ -3,7 +3,7 @@
     <div class="p-4">
         <div class="card">
            <x-card-header
-               :can-create="\App\Helper::HasPermissionMenu('company', 'create')"
+               :can-create="\App\Helper::HasPermissionMenu('testimonial', 'create')"
                :url="route('testimonial.create')"
                :name="__('page.testimonials')"
                :url-name="__('page.create')"/>
@@ -46,7 +46,7 @@
                                             </button>
                                             <x-action-buttons
                                                 :model="$item"
-                                                permission-for="company"
+                                                permission-for="testimonial"
                                                 route-prefix="testimonial"
                                             />
                                         </div>

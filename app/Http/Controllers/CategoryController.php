@@ -55,12 +55,16 @@ class CategoryController extends Controller
 
 
     public function store(CategoryCreateRequest $request){
-        $data = collect($request->validated());
+        $data = collect($request->validated())
+        ->merge([
+            'itemTotal' => 0,
+            'categoryImg' => Helper::FileUpload(request_key: 'image', path: 'images')
+        ])
+        ->except('image')
+        ->toArray();
+        
         try {
-            $category = Category::create($data->except('image')->toArray());
-            if ($request->image){
-                $category->addMediaFromRequest('image')->toMediaCollection();
-            }
+            $category = Category::create($data);
             return redirect()->back()->with('success', Helper::CreatedSuccessFully());
         }
         catch (\Exception $exception){
@@ -71,17 +75,21 @@ class CategoryController extends Controller
 
     public function update($id, CategoryUpdateRequest $request){
         $category = Category::find($id);
-        $data = collect($request->validated());
         if (!$category){
             abort(404);
         }
-        try {
-            if ($request->image){
-                $category->clearMediaCollection();
-                $category->addMediaFromRequest('image')->toMediaCollection();
-                $category->update($data->except('image')->toArray());
-                return redirect()->back()->with('success', Helper::UpdatedSuccessFully());
-            }
+
+        $data = collect($request->validated())->except('image');
+        if($path = Helper::FileUpload(request_key: 'image', path: 'images')){
+            $data = $data->merge([
+                'categoryImg' => $path
+            ]);
+            Helper::RemoveFile($category->categoryImg);
+        }
+        
+        try {  
+            $category->update($data->toArray());
+            return redirect()->back()->with('success', Helper::UpdatedSuccessFully());
         }
         catch (\Exception $exception){
             return $exception->getMessage();
@@ -97,6 +105,7 @@ class CategoryController extends Controller
         }
         try {
             $category->delete();
+            Helper::RemoveFile($category->categoryImg);
             return redirect()->back()->with('success', Helper::DeletedSuccessFully());
         }
         catch (\Exception $exception){

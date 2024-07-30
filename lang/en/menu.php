@@ -7,6 +7,9 @@
       'categories' => 'Categories',
       'testimonials' => 'Testimonials ',
       'all_testimonial' => 'All Testimonial',
+      'problem_management' => 'Problem Management',
+      'porblems' => 'Problems',
+      'all_problems' => 'All Problems',
 
 
 

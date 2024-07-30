@@ -21,20 +21,11 @@ class TestimonialCreateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rule = [
-            'name' => 'required|array',
-            'name.*' => 'string',
-            'designation' => 'required|array',
-            'designation.*' => 'string',
-            'comments' => 'required|array',
-            'comments.*' => 'string',
+        return [
+            'name' => 'required|string',
+            'designation' => 'required|string',
+            'comments' => 'required|string',
             'image' => 'nullable|mimes:jpeg,jpg,png,gif,svg|max:10000',
         ];
-        foreach (config('settings.language') as $lang=>$config){
-            $rule['name.'.$lang] = $config['required'] === true ? 'required' : 'nullable';
-            $rule['designation.'.$lang] = $config['required'] === true ? 'required' : 'nullable';
-            $rule['comments.'.$lang] = $config['required'] === true ? 'required' : 'nullable';
-        }
-        return $rule;
     }
 }

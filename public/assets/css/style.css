@@ -143,3 +143,15 @@
     color: #697a8d;
 }
 
+
+
+/* Problems Steps Form */
+
+
+.form-step {
+    display: none;
+}
+
+.form-step-active {
+    display: block;
+}

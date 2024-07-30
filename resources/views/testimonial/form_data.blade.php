@@ -5,8 +5,7 @@
     name="name"
     type="text"
     :readonly="false"
-    :multi_lang="true"
-    :value="$is_edit ? $testimonial->getTranslations('name') : null"
+    :value="$is_edit ? $testimonial->name : null"
 />
 
 
@@ -15,8 +14,7 @@
     name="designation"
     type="text"
     :readonly="false"
-    :multi_lang="true"
-    :value="$is_edit ? $testimonial->getTranslations('designation') : null"
+    :value="$is_edit ? $testimonial->designation : null"
 />
 
 <x-input
@@ -24,8 +22,7 @@
     name="comments"
     type="text-area"
     :readonly="false"
-    :multi_lang="true"
-    :value="$is_edit ? $testimonial->getTranslations('comments') : null"
+    :value="$is_edit ? $testimonial->comments : null"
 />
 
 

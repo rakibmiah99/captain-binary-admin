@@ -175,4 +175,38 @@ class Helper
         }
         return $status;
     }
+
+
+    public static function GetImage($path){
+        return env("APP_URL").$path;
+    }
+
+
+    public static function FileUpload($request_key, $path){
+        if ($file = request()->file($request_key)){
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path($path), $filename);
+
+            // Save the file path in the database
+            $photoPath = "/$path/" . $filename;
+            return $photoPath;
+        }
+        else{
+            return false;
+        }
+    }
+
+    
+
+    public static function RemoveFile($path){
+        $filePath = public_path($path);
+
+        // Delete the file from the server
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+    
+    }
+
+
 }

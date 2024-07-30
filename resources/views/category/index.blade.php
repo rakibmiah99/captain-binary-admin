@@ -3,7 +3,7 @@
     <div class="p-4">
         <div class="card">
            <x-card-header
-               :can-create="\App\Helper::HasPermissionMenu('company', 'create')"
+               :can-create="\App\Helper::HasPermissionMenu('category', 'create')"
                :url="route('category.create')"
                :name="__('page.categories')"
                :url-name="__('page.create')"/>
@@ -28,7 +28,7 @@
                                     <td>{{$index++}}</td>
                                     @foreach(request()->columns ?? $columns as $column)
                                         <td>
-                                            @if($column == "details")
+                                            @if($column == "categoryDetails" || $column == "categoryDetails_bn")
                                                 {{\Illuminate\Support\Str::limit($item->$column, 50)}}
                                             @elseif($column == "image")
                                                 <img width="70px" height="70" src="{{$item->$column}}" >
@@ -46,7 +46,7 @@
                                             </button>
                                             <x-action-buttons
                                                 :model="$item"
-                                                permission-for="company"
+                                                permission-for="category"
                                                 route-prefix="category"
                                             />
                                         </div>

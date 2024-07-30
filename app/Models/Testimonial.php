@@ -7,16 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
-
+use App\Helper;
 class Testimonial extends Model implements HasMedia
 {
-    use HasFactory, HasTranslations, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia;
     protected $guarded = [];
-    public $translatable = ['name', 'designation', 'comments'];
     function scopeFilter(){
 
     }
+    // public function getImageAttribute(){
+    //     return $this->getMedia('*')->first()->original_url ?? null;
+    // }
+    
     public function getImageAttribute(){
-        return $this->getMedia('*')->first()->original_url ?? null;
+        return Helper::GetImage($this->img);
     }
 }

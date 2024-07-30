@@ -42,6 +42,17 @@ Route::middleware(['auth.check', 'localization'])->prefix('/')->group(function (
     });
 
 
+    Route::prefix('problem')->name('problem.')->group(function (){
+        Route::get('/', [\App\Http\Controllers\ProblemController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\ProblemController::class, 'create'])->name('create');
+        Route::get('/show/{id}', [\App\Http\Controllers\ProblemController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [\App\Http\Controllers\ProblemController::class, 'edit'])->name('edit');
+        Route::get('/changeStatus/{id}', [\App\Http\Controllers\ProblemController::class, 'changeStatus'])->name('changeStatus');
+        Route::post('/update/{id}', [\App\Http\Controllers\ProblemController::class, 'update'])->name('update');
+        Route::post('/store', [\App\Http\Controllers\ProblemController::class, 'store'])->name('store');
+        Route::post('/delete/{id}', [\App\Http\Controllers\ProblemController::class, 'delete'])->name('delete');
+        Route::get('/export', [\App\Http\Controllers\ProblemController::class, 'export'])->name('export');
+    });
 
 
 

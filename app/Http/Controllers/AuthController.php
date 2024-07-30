@@ -17,7 +17,6 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request){
         $credential = $request->only(['email', 'password']);
-
         if(Auth::attempt($credential, true)){
             if ($request->remember){
                 $minutes = 3 * 24 * 60;

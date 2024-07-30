@@ -1,5 +1,5 @@
 @php
-    $mode = $attributes->get('mode') ?? 'horizontal'; //vertical,horizontal
+    $mode = $attributes->get('mode') ?? 'vertical'; //vertical,horizontal
     $name = $attributes->get('name');
     $size = $attributes->get('size');
     $array = $attributes->get('array');
