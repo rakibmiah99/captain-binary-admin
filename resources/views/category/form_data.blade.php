@@ -5,7 +5,7 @@
     name="categoryName"
     type="text"
     :readonly="false"
-    :required="true"
+    :required="false"
     :value="$is_edit ? $category->categoryName : null"
 />
 
@@ -24,7 +24,7 @@
     name="categoryDetails"
     type="text-area"
     :readonly="false"
-    :required="true"
+    :required="false"
     :value="$is_edit ? $category->categoryDetails : null"
 />
 

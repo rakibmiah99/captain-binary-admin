@@ -22,9 +22,9 @@ class CategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'categoryName' => 'required|string',
+            'categoryName' => 'nullable|string',
             'categoryName_bn'=> 'required|string',
-            'categoryDetails' => 'required|string',
+            'categoryDetails' => 'nullable|string',
             'categoryDetails_bn' => 'required|string',
             'image' => 'nullable|mimes:jpeg,jpg,png,gif,svg|max:10000',
         ];
