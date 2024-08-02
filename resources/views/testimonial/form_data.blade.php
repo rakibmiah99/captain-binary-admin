@@ -5,6 +5,7 @@
     name="name"
     type="text"
     :readonly="false"
+    :required="true"
     :value="$is_edit ? $testimonial->name : null"
 />
 
@@ -14,6 +15,7 @@
     name="designation"
     type="text"
     :readonly="false"
+    :required="true"
     :value="$is_edit ? $testimonial->designation : null"
 />
 
@@ -22,6 +24,7 @@
     name="comments"
     type="text-area"
     :readonly="false"
+    :required="true"
     :value="$is_edit ? $testimonial->comments : null"
 />
 
