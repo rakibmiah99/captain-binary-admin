@@ -10,7 +10,7 @@
                         <tr>
                             <th>{{__('page.sl')}}</th>
                             @foreach(request()->columns ?? $columns  as $column)
-                                <th>{{__('db.company.'.$column)}}</th>
+                                <th>{{__('db.roles.'.$column)}}</th>
                             @endforeach
                             <th>{{__('page.action')}}</th>
                         </tr>

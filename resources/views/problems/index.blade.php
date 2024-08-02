@@ -3,12 +3,12 @@
     <div class="p-4">
         <div class="card">
            <x-card-header
-               :can-create="\App\Helper::HasPermissionMenu('category', 'create')"
+               :can-create="\App\Helper::HasPermissionMenu('problem', 'create')"
                :url="route('problem.create')"
                :name="__('page.categories')"
                :url-name="__('page.create')"/>
             <div class="mt-3">
-                <x-filter-data :can-export="false" export-url="category.export" translate-from="db.problem" :columns="$columns"/>
+                <x-filter-data :can-export="false" export-url="problem.export" translate-from="db.problem" :columns="$columns"/>
 
                 <div class="table-responsive mt-2 table-paginate text-nowrap">
                     <table class="table">
@@ -46,7 +46,7 @@
                                             </button>
                                             <x-action-buttons
                                                 :model="$item"
-                                                permission-for="category"
+                                                permission-for="problem"
                                                 route-prefix="problem"
                                             />
                                         </div>
@@ -69,7 +69,7 @@
 
 
 
-    <x-view-modal size="modal-lg">
+    <x-view-modal size="modal-xl">
         <div id="data-view">
 
         </div>

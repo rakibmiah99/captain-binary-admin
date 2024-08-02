@@ -45,7 +45,7 @@
         @if(isset($is_multiple) && $is_multiple === true)
             $('#{{$name}}').val({{json_encode($value)}});
         @else
-            $('#{{$name}}').val({{$value}});
+            $('#{{$name}}').val('{{$value}}');
         @endif
 
     </script>

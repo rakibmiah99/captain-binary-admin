@@ -21,6 +21,7 @@
     $is_multi_lang = $attributes->get('multi_lang') ?? false;
     $readonly = $attributes->get('readonly') ?? false;
     $disabled = $attributes->get('disabled') ?? false;
+    $html_entity_decode = $attributes->get('decode') ?? false;
 
 @endphp
 @if($is_multi_lang)
@@ -65,7 +66,7 @@
                         @if($max) max="{{$max}}" @endif
                         cols="{{$cols}}"
                         rows="{{$rows}}"
-            >{{$translatable_value}}</textarea>
+            >@if($html_entity_decode)<?php echo $translatable_value; ?>@else{{$translatable_value}}@endif</textarea>
                 @endif
             </div>
         </div>
@@ -104,7 +105,7 @@
                     @if($max) max="{{$max}}" @endif
                     cols="{{$cols}}"
                     rows="{{$rows}}"
-            >{{$value ?? old($name)}}</textarea>
+            >@if($html_entity_decode)<?php echo $value ?? old($name); ?>@else{{$value ?? old($name)}}@endif</textarea>
             @endif
         </div>
     </div>

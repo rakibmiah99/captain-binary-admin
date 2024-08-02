@@ -19,4 +19,3 @@
     </div>
 </x-main-layout>
 
-@include('company.common_script')

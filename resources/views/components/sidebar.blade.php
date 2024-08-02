@@ -23,18 +23,18 @@
         <x-menu-item icon="bi bi-person-lines-fill" :active="$segment1 == 'contact'" :url="route('contact.index')" :name="__('menu.contact')"/>
         <x-menu-item-dropdown
             bi-icon="bi-quote"
-            :visibility="\App\Helper::HasPermissionMenu('role')"
+            :visibility="\App\Helper::HasPermissionMenu('testimonial')"
             :name="__('menu.testimonials')"
             :active="$segment1 == 'testimonial'"
             :child="[
                 [
                     'url' => route('testimonial.create'),
                     'name' => __('menu.add_new'),
-                    'visibility' => true,
+                    'visibility' => \App\Helper::HasPermissionMenu('testimonial', 'create'),
                     'active' => $segment1 == 'testimonial' && $segment2 == 'create'
                 ],
                 [
-                    'visibility' => true,
+                    'visibility' => \App\Helper::HasPermissionMenu('testimonial', 'view'),
                     'url' => route('testimonial.index'),
                     'active' => $segment1 == 'testimonial' && !isset($segment2),
                     'name' => __('menu.all_testimonial')
@@ -43,7 +43,7 @@
         "/>
         <x-menu-item-dropdown
             bi-icon="bi-view-list"
-            :visibility="\App\Helper::HasPermissionMenu('role')"
+            :visibility="\App\Helper::HasPermissionMenu('category')"
             :name="__('menu.category_management')"
             :active="$segment1 == 'category'"
             :child="[
@@ -51,10 +51,10 @@
                     'url' => route('category.create'),
                     'name' => __('menu.add_new'),
                     'active' => $segment1 == 'category' && $segment2 == 'create',
-                    'visibility' => true,
+                    'visibility' => \App\Helper::HasPermissionMenu('category', 'create'),
                 ],
                 [
-                    'visibility' => true,
+                    'visibility' => \App\Helper::HasPermissionMenu('category', 'view'),
                     'url' => route('category.index'),
                     'active' => $segment1 == 'category' && !isset($segment2),
                     'name' => __('menu.categories')
@@ -65,7 +65,7 @@
 
     <x-menu-item-dropdown
         bi-icon="bi-code"
-        :visibility="\App\Helper::HasPermissionMenu('role')"
+        :visibility="\App\Helper::HasPermissionMenu('problem')"
         :name="__('menu.problem_management')"
         :active="$segment1 == 'problem'"
         :child="[
@@ -73,10 +73,10 @@
                 'url' => route('problem.create'),
                 'name' => __('menu.add_new'),
                 'active' => $segment1 == 'problem' && $segment2 == 'create',
-                'visibility' => true,
+                'visibility' => \App\Helper::HasPermissionMenu('problem', 'create'),
             ],
             [
-                'visibility' => true,
+                'visibility' => \App\Helper::HasPermissionMenu('problem', 'view'),
                 'url' => route('problem.index'),
                 'active' => $segment1 == 'problem' && !isset($segment2),
                 'name' => __('menu.all_problems')

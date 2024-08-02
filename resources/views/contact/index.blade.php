@@ -44,7 +44,9 @@
                                             </button>
                                             <div class="dropdown-menu" style="">
                                                 <a data-bs-toggle="modal" data-bs-target="#viewModal" class="dropdown-item view-btn" href="javascript:void(0);" url="{{route('contact.show', $item->id)}}"><i class='bx bx-low-vision me-1'></i>{{__('page.view')}}</a>
+                                                @if(\App\Helper::HasPermissionMenu('contact', 'delete'))
                                                 <a data-bs-toggle="modal" data-bs-target="#deleteModal" url="{{route('contact.delete', $item->id)}}"  class="dropdown-item delete-btn" href="javascript:void(0);"><i class="bx bx-trash me-1"></i>{{__('page.delete')}}</a>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>

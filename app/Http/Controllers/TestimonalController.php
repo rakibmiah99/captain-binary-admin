@@ -22,7 +22,6 @@ class TestimonalController extends Controller
     }
 
     public function index(Request $request){
-        return view('problems.steps');
         $columns = array_keys(__('db.testimonial'));
         $data = Testimonial::filter()->paginate(Helper::PerPage())->withQueryString();
         return view('testimonial.index', compact('data', 'columns'));

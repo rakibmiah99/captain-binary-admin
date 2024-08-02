@@ -63,6 +63,39 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js'></script>
+
+<!-- CodeMirror CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/theme/default.min.css"> <!-- or another light theme like 'eclipse' -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/theme/dracula.min.css">
+
+<!-- Highlight.js CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+
+<!-- Highlight.js JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+<!-- Optional: load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+
+<!-- CodeMirror JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/addon/edit/matchbrackets.min.js"></script>
+
+
+
+
+<style>
+    .CodeMirror {
+        border: 1px solid #ddd;
+        height: 200px;
+    }
+    .toolbar{
+        display: none;
+    }
+</style>
 @if(session('theme') == \App\Enums\Theme::DARK->value)
     <style>
         .select2-container--default .select2-selection--single {
@@ -183,5 +216,41 @@
             cb(start, end);
 
         });
+    }
+
+    
+    function codeMirror(id, options = {}, auto_height = false){
+        // Initialize CodeMirror
+
+        let default_configure = {
+            mode: 'javascript',
+            theme: "{{session('theme') == \App\Enums\Theme::DARK->value ? 'dracula' : 'default'}}",
+            lineNumbers: false,
+            matchBrackets: true
+        }
+
+        let editor = CodeMirror.fromTextArea(document.getElementById(id), {...default_configure, ...options});
+        if(auto_height){
+            adjustCodeMirrorHeight(editor);
+        }
+        return editor;
+    }
+
+    function adjustCodeMirrorHeight(editor, default_size = "auto") {
+        editor.setSize(null, default_size);
+        const height = editor.getScrollInfo().height+30;
+        editor.setSize(null, height + 'px');
+    }
+
+
+    function fileToLoadPDF(file_id, iframe_id){
+        let file = document.getElementById(file_id).files[0];
+        let iframe = document.getElementById(iframe_id);
+        if (file && file.type === 'application/pdf') {
+            var fileURL = URL.createObjectURL(file);
+            iframe.src = fileURL;
+        } else {
+            alert('Please select a valid PDF file.');
+        }
     }
 </script>

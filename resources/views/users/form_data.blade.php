@@ -21,35 +21,7 @@
         />
     </div>
 
-    <div class="col-md-12">
-        <x-input
-            :title="__('page.phone')"
-            name="phone"
-            type="text"
-            :required="false"
-            :value="$is_edit ? $user->phone : old('phone')"
-        />
-    </div>
-
-    <div class="col-md-12">
-        <x-input
-            :title="__('page.location')"
-            name="location"
-            type="text"
-            :required="false"
-            :value="$is_edit ? $user->location : old('location')"
-        />
-    </div>
-
-    <div class="col-md-12">
-        <x-input
-            :title="__('page.website')"
-            name="website"
-            type="text"
-            :required="false"
-            :value="$is_edit ? $user->website : old('website')"
-        />
-    </div>
+    
 
     <div class="col-md-12">
         <x-input

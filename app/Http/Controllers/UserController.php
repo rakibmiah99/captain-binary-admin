@@ -11,6 +11,7 @@ use App\Http\Requests\Invoice\InvoiceUpdateRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
+use App\Models\Admin;
 use App\Models\CompanySetting;
 use App\Models\Invoice;
 use App\Models\InvoiceData;
@@ -62,17 +63,16 @@ class UserController extends Controller
 
     public function index(Request $request){
         $columns = array_keys(__('db.users'));
-        $data = User::filter()->paginate(Helper::PerPage())->withQueryString();
+        $data = Admin::filter()->paginate(Helper::PerPage())->withQueryString();
 //        $permissions =  $data->first()->roles->flatMap->permissions->pluck('name');
         return view('users.index', compact('data', 'columns'));
     }
 
     public function show($id){
-        $user =  User::find($id);
+        $user =  Admin::find($id);
         if (!$user){
             abort(404);
         }
-        $user = User::find($id);
         $permissions =  $user->getAllPermissions()->groupBy('group_name');
         return view('users.show', compact('user', 'permissions'));
     }
@@ -87,7 +87,7 @@ class UserController extends Controller
     public function edit($id, Request $request)
     {
         $roles = Role::get();
-        $user = User::find($id);
+        $user = Admin::find($id);
         $user_role_id = $user->roles?->first()?->id;
         if (!$user){
             abort(404, 'not fond');
@@ -103,7 +103,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $role = Role::find($request->role_id);
-            $user =  User::create($data->except('role_id')->toArray());
+            $user =  Admin::create($data->except('role_id')->toArray());
             $user->assignRole($role);
             DB::commit();
             return redirect()->route('user.index')->with('success', Helper::CreatedSuccessFully());
@@ -121,7 +121,7 @@ class UserController extends Controller
         }
 
         DB::beginTransaction();
-        $user = User::find($id);
+        $user = Admin::find($id);
         if (!$user){
             abort(404, 'not fond');
         }
@@ -140,7 +140,7 @@ class UserController extends Controller
 
 
     public function delete($id){
-        $user =  User::find($id);
+        $user =  Admin::find($id);
         if (!$user){
             abort(404);
         }

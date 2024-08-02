@@ -8,7 +8,7 @@
     
                 @include('problems.details_form')
     
-                <!-- Step 3 -->
+                <!-- Step 3 --> 
                 <div class="form-step" id="step3">
                     <h2>Step 3: Review & Submit</h2>
                     <p>Please review your information and submit.</p>

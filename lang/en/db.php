@@ -42,6 +42,26 @@
             'description_bn' => 'description In Bangla',
             'difficulty' => 'Difficulty',
             'point' => 'Point',
-            'tags' => 'Tags'
+            'tags' => 'Tags',
+            'reference_title' => 'Reference Title',
+            'reference_link' => 'Reference Link',
+            'instructions' => 'Instruction In English',
+            'instructions_bn' => 'Instruction In Bangla',
+            'code' => 'code',
+            'test_case' => 'Test Case'
+        ],
+
+        'roles' => [
+            'name' => "Role Name",
+        ],
+        'users' => [
+            'name' => "Name",
+            'email' => "Email",
+            // 'username' => "User Name",
+            // 'phone' => "Phone",
+            // 'company_name' => "Company Name",
+            // 'location' => "Location",
+            // 'website' => "Website",
+            'roles' => "Roles",
         ],
     ];

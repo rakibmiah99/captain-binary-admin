@@ -15,7 +15,7 @@
             label-size="4"
             input-size="8"
             mode="vertical"
-            :title="__('page.role_name', ['in' => __('page.arabic')])"
+            :title="__('page.role_name', ['in' => __('page.bangla')])"
             name="role_name[ar]"
             type="text"
             :required="false"

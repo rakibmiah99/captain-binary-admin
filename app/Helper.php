@@ -202,7 +202,7 @@ class Helper
         $filePath = public_path($path);
 
         // Delete the file from the server
-        if (file_exists($filePath)) {
+        if ($path && file_exists($filePath)) {
             unlink($filePath);
         }
     
