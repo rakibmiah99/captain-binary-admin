@@ -219,8 +219,8 @@ class ProblemController extends Controller
         }
         try {
             $problem->delete();
-            Helper::RemoveFile($problem->details->instructions_bn);
-            Helper::RemoveFile($problem->details->instructions);
+            // Helper::RemoveFile($problem->details?->instructions_bn);
+            // Helper::RemoveFile($problem->details?->instructions);
             return redirect()->back()->with('success', Helper::DeletedSuccessFully());
         }
         catch (\Exception $exception){
