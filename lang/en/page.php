@@ -77,4 +77,10 @@
         'submit' => 'Submit',
         'view_user_permissions' => 'View User Permissions',
         'image' => 'Image',
+        'top_problem_solvers' => 'Top :number Problem Solvers',
+        'last_12_month_user_growth' => 'Last Twelve Month User Growth',
+        'problem_solved_by_users' => 'Problem Solved By Users',
+        'solved_contacts' => 'Solved Contacts',
+        'pending_contacts' => 'Pending Contacts',
+        'bookmarks' => 'Bookmarks'
     ];
