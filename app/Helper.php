@@ -188,7 +188,7 @@ class Helper
             $file->move(public_path($path), $filename);
 
             // Save the file path in the database
-            $photoPath = "/$path/" . $filename;
+            $photoPath = request()->root()."/$path/" . $filename;
             return $photoPath;
         }
         else{
@@ -199,6 +199,16 @@ class Helper
     
 
     public static function RemoveFile($path){
+        if($path){
+            try{
+                $path = explode(request()->root(), $path);
+                $path = $path[1];
+            }
+            catch(\Exception $e){
+                $path = null;
+            }
+        }
+        
         $filePath = public_path($path);
 
         // Delete the file from the server

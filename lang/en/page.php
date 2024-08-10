@@ -82,5 +82,11 @@
         'problem_solved_by_users' => 'Problem Solved By Users',
         'solved_contacts' => 'Solved Contacts',
         'pending_contacts' => 'Pending Contacts',
-        'bookmarks' => 'Bookmarks'
+        'bookmarks' => 'Bookmarks',
+        'daily' => 'Daily',
+        'weekly' => 'Weekly',
+        'monthly' => 'Monthly',
+        'last_12__month_solved_problem_by_user' => 'Last Twelve Month Solved Problem By User',
+        'last_4_weeks_solved_problem_by_user' => 'Last Four Weeks Problem By User',
+        'last_7_days_solved_problem_by_user' => 'Last Seven Days Solved Problem By User'
     ];

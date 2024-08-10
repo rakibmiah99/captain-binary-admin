@@ -20,6 +20,7 @@ class Testimonial extends Model implements HasMedia
     // }
     
     public function getImageAttribute(){
-        return Helper::GetImage($this->img);
+        return $this->img;
+        // return Helper::GetImage($this->img);
     }
 }

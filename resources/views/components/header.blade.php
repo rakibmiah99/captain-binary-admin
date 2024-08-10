@@ -250,7 +250,7 @@
             var fileURL = URL.createObjectURL(file);
             iframe.src = fileURL;
         } else {
-            alert('Please select a valid PDF file.');
+            Toast('Please select a valid PDF file.', 'error');
         }
     }
 </script>

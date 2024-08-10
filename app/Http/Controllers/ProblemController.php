@@ -51,10 +51,7 @@ class ProblemController extends Controller
 
 
     public function store(ProblemCreateRequest $request){
-        
         DB::beginTransaction();
-        
-        
         try {
 
             //Make Problem Model Data
@@ -168,16 +165,19 @@ class ProblemController extends Controller
 
             //If has file  in Instruction  then File Upload And Get Path and merge Data 
             if($request->file('instructions_bn')){
-                $problem_details_data->merge([
+                $problem_details_data = $problem_details_data->merge([
                     'instructions_bn' => Helper::FileUpload(request_key: 'instructions_bn', path: 'files')
                 ]);
+                
+                // dd(explode(request()->root(), $problem->details->instructions_bn));
                 Helper::RemoveFile($problem->details->instructions_bn);
+                
             }
 
 
             //If has file  in Instruction  then File Upload And Get Path and merge Data 
             if($request->file('instructions')){
-                $problem_details_data->merge([
+                $problem_details_data =  $problem_details_data->merge([
                     'instructions' => Helper::FileUpload(request_key: 'instructions', path: 'files')
                 ]);
                 Helper::RemoveFile($problem->details->instructions);
@@ -186,7 +186,7 @@ class ProblemController extends Controller
             //Insert data in problem details model
             $problem->details->update($problem_details_data->toArray()) ;
             
-
+           
         
             //If has reference title or reference link then 
             if($request->reference_title || $request->reference_link){
@@ -214,16 +214,17 @@ class ProblemController extends Controller
 
     public function delete($id){
         $problem = Problem::find($id);
+        DB::beginTransaction();
         if (!$problem){
             abort(404);
         }
         try {
             $problem->delete();
-            // Helper::RemoveFile($problem->details?->instructions_bn);
-            // Helper::RemoveFile($problem->details?->instructions);
+            DB::commit();
             return redirect()->back()->with('success', Helper::DeletedSuccessFully());
         }
         catch (\Exception $exception){
+            DB::rollBack();
             return $exception->getMessage();
         }
     }

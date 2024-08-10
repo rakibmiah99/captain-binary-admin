@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\ProblemObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy([ProblemObserver::class])]
 class Problem extends Model
 {
     use HasFactory;
@@ -19,5 +22,9 @@ class Problem extends Model
     }
     public function references(){
         return $this->belongsTo(ProblemReference::class, 'id', 'problem_id');
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

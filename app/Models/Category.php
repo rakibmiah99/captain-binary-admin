@@ -25,6 +25,7 @@ class Category extends \App\Model implements HasMedia
     // }
 
     public function getImageAttribute(){
-        return Helper::GetImage($this->categoryImg);
+        return $this->categoryImg;
+        // return Helper::GetImage($this->categoryImg);
     }
 }
