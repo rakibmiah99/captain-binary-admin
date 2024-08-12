@@ -4,15 +4,16 @@
         <th>{{__('db.problem_in_details.'.$column)}}</th>
         <th>:</th>
         <td>
-            @if($column == "reference_title")
-                {{$problem->references?->reference_title}}
-            @elseif($column == "reference_link")
-                {{$problem->references?->reference_link}}
+            @if($column == "references")
+                @foreach($problem->references as $reference)
+                <p><b>Title: </b> {{$reference->reference_title}}</p>
+                <p><b>Link: </b> {{$reference->reference_link}}</p>
+                @endforeach
             @elseif($column == "code" || $column == "test_case")
                 <textarea id="view_{{$column}}">@php echo $problem->details?->$column; @endphp</textarea>
             @elseif($column == "instructions_bn" || $column == "instructions")
                 <iframe src="{{$problem->details?->$column}}" style="width: 100%; height: 300px" id="view_{{$column}}"></iframe>
-            @else 
+            @else
                 {{$problem->$column}}
             @endif
         </td>

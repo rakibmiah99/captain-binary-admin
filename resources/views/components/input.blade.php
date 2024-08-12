@@ -10,6 +10,7 @@
     $cols = $attributes->get('col');
     $rows = $attributes->get('row') ?? 4;
     $type = $attributes->get('type') ?? "text";
+   
     $input_size = "";
     $label_size = "";
     if ($mode == "horizontal"){
@@ -22,6 +23,7 @@
     $readonly = $attributes->get('readonly') ?? false;
     $disabled = $attributes->get('disabled') ?? false;
     $html_entity_decode = $attributes->get('decode') ?? false;
+    // $name_array = $attributes->get('type') ?? false;
 
 @endphp
 @if($is_multi_lang)
@@ -66,7 +68,7 @@
                         @if($max) max="{{$max}}" @endif
                         cols="{{$cols}}"
                         rows="{{$rows}}"
-            >@if($html_entity_decode)<?php echo $translatable_value; ?>@else{{$translatable_value}}@endif</textarea>
+                >@if($html_entity_decode)<?php echo $translatable_value; ?>@else{{$translatable_value}}@endif</textarea>
                 @endif
             </div>
         </div>

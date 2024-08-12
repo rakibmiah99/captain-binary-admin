@@ -16,7 +16,11 @@
                         <tr>
                             <th>{{__('page.sl')}}</th>
                             @foreach(request()->columns ?? $columns  as $column)
-                                <th>{{__('db.category.'.$column)}}</th>
+                                @if($column == "categoryDetails" || $column == "categoryDetails_bn")
+
+                                @else
+                                    <th>{{__('db.category.'.$column)}}</th>
+                                @endif
                             @endforeach
                             <th>{{__('page.action')}}</th>
                         </tr>
@@ -29,7 +33,7 @@
                                     @foreach(request()->columns ?? $columns as $column)
                                         <td>
                                             @if($column == "categoryDetails" || $column == "categoryDetails_bn")
-                                                {{\Illuminate\Support\Str::limit($item->$column, 50)}}
+{{--                                                {{\Illuminate\Support\Str::limit($item->$column, 50)}}--}}
                                             @elseif($column == "image")
                                                 <img width="70px" height="70" src="{{$item->$column}}" >
                                             @else

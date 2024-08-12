@@ -21,7 +21,7 @@ class Problem extends Model
         return $this->belongsTo(ProblemDetail::class, 'id', 'problem_id');
     }
     public function references(){
-        return $this->belongsTo(ProblemReference::class, 'id', 'problem_id');
+        return $this->hasMany(ProblemReference::class, 'problem_id', 'id');
     }
 
     public function category(){

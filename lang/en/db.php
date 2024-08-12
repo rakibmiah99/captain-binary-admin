@@ -24,12 +24,12 @@
             'comments' => 'comments',
         ],
 
-        
+
         'problem' => [
             'title' => 'Title',
             'title_bn' => 'Title In Bangla',
-            'description' => 'description',
-            'description_bn' => 'description In Bangla',
+//            'description' => 'description',
+//            'description_bn' => 'description In Bangla',
             'difficulty' => 'Difficulty',
             'point' => 'Point',
             'tags' => 'Tags'
@@ -43,8 +43,7 @@
             'difficulty' => 'Difficulty',
             'point' => 'Point',
             'tags' => 'Tags',
-            'reference_title' => 'Reference Title',
-            'reference_link' => 'Reference Link',
+            'references' => 'References',
             'instructions' => 'Instruction In English',
             'instructions_bn' => 'Instruction In Bangla',
             'code' => 'code',

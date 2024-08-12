@@ -66,10 +66,7 @@ class DashboardController extends Controller
             $item->short_name = ucwords($users->firstName[0].$users->lastName[0]);
             return $item;
         });
-        
-
-
-
+    
 
         $last_7_days_problem_solved = [
             'label' => [],
