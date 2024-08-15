@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\ProblemObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,8 +14,13 @@ class Problem extends Model
     use HasFactory;
 
     protected $guarded = [];
-    public function scopeFilter(){
-        
+    public function scopeFilter(Builder $builder){
+        $q = trim(request()->q);
+        $builder->orWhere('title', 'LIKE', "%$q%");
+        $builder->orWhere('title_bn', 'LIKE', "%$q%");
+        $builder->orWhere('difficulty', 'LIKE', "%$q%");
+        $builder->orWhere('tags', 'LIKE', "%$q%");
+        $builder->orderBy('id', 'desc');
     }
 
     public function details(){

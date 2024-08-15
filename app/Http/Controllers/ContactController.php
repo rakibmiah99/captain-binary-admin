@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ContactStatus;
 use App\Helper;
-use App\Models\Category;
-use App\Models\Company;
 use App\Models\Contact;
-use App\Services\CompanyService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ContactController extends Controller
 {
-    public function __construct()
-    {
-        $this->group_name = 'company';
-    }
-
     public function index(Request $request){
         $columns = array_keys(__('db.contact'));
         $data = Contact::filter()->paginate(Helper::PerPage())->withQueryString();
@@ -50,13 +43,13 @@ class ContactController extends Controller
     }
 
     public function changeStatus($id){
-        $company =  Company::find($id);
-        if (!$company){
+        $contact =  Contact::find($id);
+        if (!$contact){
             abort(404);
         }
 
-        $company->status = !$company->status;
-        $company->save();
+        $contact->status = $contact->status == ContactStatus::PENDING->value ? ContactStatus::SOLVED->value : ContactStatus::PENDING->value;
+        $contact->save();
         return redirect()->back()->with('success', Helper::StatusChangedSuccessFully());
     }
 

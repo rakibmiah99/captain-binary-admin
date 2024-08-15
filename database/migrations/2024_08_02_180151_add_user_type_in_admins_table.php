@@ -12,9 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->enum('user_type', UserTypeEnum::toArray())->default(UserTypeEnum::SYSTEM->value)->after('email_verified_at');
-        });
+//        Schema::table('admins', function (Blueprint $table) {
+//            $table->enum('user_type', UserTypeEnum::toArray())->default(UserTypeEnum::SYSTEM->value)->after('email_verified_at');
+//        });
     }
 
     /**

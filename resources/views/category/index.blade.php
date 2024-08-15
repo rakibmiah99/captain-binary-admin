@@ -31,15 +31,13 @@
                                 <tr>
                                     <td>{{$index++}}</td>
                                     @foreach(request()->columns ?? $columns as $column)
-                                        <td>
                                             @if($column == "categoryDetails" || $column == "categoryDetails_bn")
-{{--                                                {{\Illuminate\Support\Str::limit($item->$column, 50)}}--}}
+{{--                                                <td>{{\Illuminate\Support\Str::limit($item->$column, 50)}}</td>--}}
                                             @elseif($column == "image")
-                                                <img width="70px" height="70" src="{{$item->$column}}" >
+                                                <td><img width="70px" height="70" src="{{$item->$column}}" alt=""/></td>
                                             @else
-                                                {{$item->$column}}
+                                                <td>{{$item->$column}}</td>
                                             @endif
-                                        </td>
 
                                     @endforeach
 

@@ -6,22 +6,13 @@ use App\Enums\ContactStatus;
 use App\Models\Admin;
 use App\Models\Bookmark;
 use App\Models\Category;
-use App\Models\Company;
 use App\Models\Contact;
-use App\Models\Hotel;
-use App\Models\MealSystem;
-use App\Models\Order;
-use App\Models\OrderMonitoring;
 use App\Models\Problem;
 use App\Models\SolvedProblem;
 use App\Models\Testimonial;
 use App\Models\User;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Lang;
 
 class DashboardController extends Controller
 {
@@ -39,7 +30,7 @@ class DashboardController extends Controller
 
         $users_chart = [
             'label' => [],
-            'data' => [] 
+            'data' => []
         ];
         for ($i = 0; $i < 12; $i++) {
             $date = Carbon::now()->subMonths($i);
@@ -66,11 +57,11 @@ class DashboardController extends Controller
             $item->short_name = ucwords($users->firstName[0].$users->lastName[0]);
             return $item;
         });
-    
+
 
         $last_7_days_problem_solved = [
             'label' => [],
-            'data' => [] 
+            'data' => []
         ];
         for ($i = 0; $i < 7; $i++) {
             $date = Carbon::now()->subDays($i);
@@ -88,7 +79,7 @@ class DashboardController extends Controller
 
         $last_12_month_problem_solved = [
             'label' => [],
-            'data' => [] 
+            'data' => []
         ];
 
         for ($i = 0; $i < 12; $i++) {
@@ -107,20 +98,20 @@ class DashboardController extends Controller
             'label' => ['week4', 'week3', 'week2', 'this_week'],
             'data' => []
         ];
-        
+
         for ($i = 3; $i >= 0; $i--) {
             $startOfWeek = Carbon::now()->subWeeks($i)->startOfWeek();
             $endOfWeek = Carbon::now()->subWeeks($i)->endOfWeek();
-            
+
             $problem_count = SolvedProblem::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-            
+
             $last_4_weeks_problem_solved['data'][] = $problem_count;
         }
 
         // return $last_4_weeks_problem_solved;
 
 
-       
+
         return view('dashboard', compact(
             'users',
             'pending_contacts',

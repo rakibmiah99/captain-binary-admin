@@ -218,7 +218,7 @@
         });
     }
 
-    
+
     function codeMirror(id, options = {}, auto_height = false){
         // Initialize CodeMirror
 
@@ -250,7 +250,7 @@
             var fileURL = URL.createObjectURL(file);
             iframe.src = fileURL;
         } else {
-            Toast('Please select a valid PDF file.', 'error');
+            // Toast('Please select a valid PDF file.', 'error');
         }
     }
 </script>

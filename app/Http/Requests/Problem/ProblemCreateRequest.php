@@ -21,6 +21,7 @@ class ProblemCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+//        dd(request()->all());
         return [
             "title"=> "nullable|string",
             "title_bn"=> "required|string",

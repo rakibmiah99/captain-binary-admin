@@ -5,24 +5,11 @@ namespace App\Http\Controllers;
 use App\Helper;
 use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
-use App\Http\Requests\Company\CompanyCreateRequest;
-use App\Http\Requests\Company\CompanyUpdateRequest;
 use App\Models\Category;
-use App\Models\Company;
-use App\Models\Country;
-use App\Models\MealPrice;
-use App\Models\Order;
-use App\Services\CompanyService;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->group_name = 'company';
-    }
-
     public function index(Request $request){
         $columns = array_keys(__('db.category'));
         $data = Category::filter()->paginate(Helper::PerPage())->withQueryString();
@@ -62,10 +49,10 @@ class CategoryController extends Controller
         ])
         ->except('image')
         ->toArray();
-        
+
         try {
             $category = Category::create($data);
-            return redirect()->back()->with('success', Helper::CreatedSuccessFully());
+            return redirect()->route('category.index')->with('success', Helper::CreatedSuccessFully());
         }
         catch (\Exception $exception){
             return redirect()->back()->with('error', $exception->getMessage())->withInput($request->all());
@@ -86,10 +73,10 @@ class CategoryController extends Controller
             ]);
             Helper::RemoveFile($category->categoryImg);
         }
-        
-        try {  
+
+        try {
             $category->update($data->toArray());
-            return redirect()->back()->with('success', Helper::UpdatedSuccessFully());
+            return redirect()->route('category.index')->with('success', Helper::UpdatedSuccessFully());
         }
         catch (\Exception $exception){
             return $exception->getMessage();
@@ -113,25 +100,4 @@ class CategoryController extends Controller
         }
     }
 
-    public function changeStatus($id){
-        $company =  Company::find($id);
-        if (!$company){
-            abort(404);
-        }
-
-        $company->status = !$company->status;
-        $company->save();
-        return redirect()->back()->with('success', Helper::StatusChangedSuccessFully());
-    }
-
-
-    //for export to pdf and Excel file
-    public function export(Request $request){
-        if ($request->get('export-type') == "excel"){
-            return Excel::download(new \App\Exports\PDF\CompanyExport(), Helper::GenerateFileName('company', ExportFormat::XLSX->value));
-        }
-        else if($request->get('export-type') == "pdf"){
-            return Excel::download(new \App\Exports\PDF\CompanyExport(), Helper::GenerateFileName('company', ExportFormat::PDF->value), \Maatwebsite\Excel\Excel::DOMPDF);
-        }
-    }
 }

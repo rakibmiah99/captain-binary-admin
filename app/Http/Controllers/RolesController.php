@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Helper;
 use App\Http\Requests\CreateRolesRequest;
-use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Spatie\Permission\Commands\CreateRole;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 

@@ -1,13 +1,13 @@
 @php $is_edit = isset($is_edit) ? $is_edit : false;  @endphp
 <div class="form-step" id="step2">
-    <h4 class="text-center">{{__('page.step_2_problem_details')}}</h2>
+    <h4 class="text-center">{{__('page.step_2_problem_details')}}</h4>
     <x-input
         :title="__('page.instruction_field', ['lang' => __('page.bangla')])"
         name="instructions_bn"
         type="file"
         :readonly="false"
         :required="$is_edit ? false : true"
-        {{-- :value="$is_edit ? $category->categoryName_bn : null" --}}
+{{--         :value="null"--}}
     />
 
     <x-input
@@ -16,7 +16,7 @@
         type="file"
         :readonly="false"
         :required="false"
-        {{-- :value="$is_edit ? $category->categoryName_bn : null" --}}
+{{--        :value="null"--}}
     />
 
 
@@ -49,7 +49,8 @@
             @endforeach
 
         @else
-            <div style="background: rgba(105,108,255,.16) !important" class="p-2 reference-form rounded mt-2">
+            <div style="background: rgba(105,108,255,.16) !important" class="p-2 reference-form position-relative rounded mt-2">
+                <button type="button" class="btn reference-close-btn btn-sm btn-danger position-absolute end-0 top-0 bi bi-x"></button>
                 <x-input
                     :title="__('page.reference_title')"
                     name="reference_title[]"

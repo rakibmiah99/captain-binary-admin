@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            //
+            $table->string('categoryName', 1000)->change();
+            $table->string('categoryDetails', 1000)->change();
         });
     }
 };

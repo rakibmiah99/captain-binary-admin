@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -12,15 +13,16 @@ class Testimonial extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
     protected $guarded = [];
-    function scopeFilter(){
-
+    function scopeFilter(Builder $builder){
+        $q = trim(request()->q);
+        $builder->orWhere('name', 'LIKE', "%$q%");
+        $builder->orWhere('designation', 'LIKE', "%$q%");
+        $builder->orWhere('comments', 'LIKE', "%$q%");
+        $builder->orderBy('id', 'desc');
     }
-    // public function getImageAttribute(){
-    //     return $this->getMedia('*')->first()->original_url ?? null;
-    // }
-    
+
+
     public function getImageAttribute(){
         return $this->img;
-        // return Helper::GetImage($this->img);
     }
 }

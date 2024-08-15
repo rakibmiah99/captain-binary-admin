@@ -8,15 +8,10 @@ use App\Models\ProblemDetail;
 use App\Models\ProblemReference;
 use Illuminate\Http\Request;
 use App\Helper;
-use App\Http\Controllers\Controller;
 use App\Models\Problem;
 use Illuminate\Support\Facades\DB;
 class ProblemController extends Controller
 {
-    public function __construct()
-    {
-        $this->group_name = 'company';
-    }
 
     public function index(Request $request){
         $columns = array_keys(__('db.problem'));
@@ -125,7 +120,7 @@ class ProblemController extends Controller
 
             }
             DB::commit();
-            return redirect()->back()->with('success', Helper::CreatedSuccessFully());
+            return redirect()->route('problem.index')->with('success', Helper::CreatedSuccessFully());
         }
         catch (\Exception $exception){
             DB::rollBack();
@@ -229,7 +224,7 @@ class ProblemController extends Controller
                 // ProblemReference::create($problem_reference_data);
             }
             DB::commit();
-            return redirect()->back()->with('success', Helper::UpdatedSuccessFully());
+            return redirect()->route('problem.index')->with('success', Helper::UpdatedSuccessFully());
         }
         catch (\Exception $exception){
             DB::rollBack();
@@ -253,28 +248,6 @@ class ProblemController extends Controller
         catch (\Exception $exception){
             DB::rollBack();
             return $exception->getMessage();
-        }
-    }
-
-    public function changeStatus($id){
-        $company =  Company::find($id);
-        if (!$company){
-            abort(404);
-        }
-
-        $company->status = !$company->status;
-        $company->save();
-        return redirect()->back()->with('success', Helper::StatusChangedSuccessFully());
-    }
-
-
-    //for export to pdf and Excel file
-    public function export(Request $request){
-        if ($request->get('export-type') == "excel"){
-            return Excel::download(new \App\Exports\PDF\CompanyExport(), Helper::GenerateFileName('company', ExportFormat::XLSX->value));
-        }
-        else if($request->get('export-type') == "pdf"){
-            return Excel::download(new \App\Exports\PDF\CompanyExport(), Helper::GenerateFileName('company', ExportFormat::PDF->value), \Maatwebsite\Excel\Excel::DOMPDF);
         }
     }
 }

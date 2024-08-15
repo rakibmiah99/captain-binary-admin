@@ -10,7 +10,7 @@
     $cols = $attributes->get('col');
     $rows = $attributes->get('row') ?? 4;
     $type = $attributes->get('type') ?? "text";
-   
+
     $input_size = "";
     $label_size = "";
     if ($mode == "horizontal"){

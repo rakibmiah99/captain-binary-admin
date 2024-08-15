@@ -2,27 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ExportFormat;
 use App\Enums\UserTypeEnum;
 use App\Helper;
 use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\Invoice\InvoiceCreateRequest;
-use App\Http\Requests\Invoice\InvoiceUpdateRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Models\Admin;
-use App\Models\CompanySetting;
-use App\Models\Invoice;
-use App\Models\InvoiceData;
-use App\Models\Order;
 use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Facades\Excel;
-use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -150,26 +140,5 @@ class UserController extends Controller
 
         $user->delete();
         return $this->successMessage(Helper::DeletedSuccessFully());
-    }
-
-    public function changeStatus($id){
-        $invoice =  Invoice::find($id);
-        if (!$invoice){
-            abort(404);
-        }
-
-        $invoice->is_close = !$invoice->is_close;
-        $invoice->save();
-        return $this->successMessage(Helper::StatusChangedSuccessFully());
-    }
-
-    //for export to pdf and Excel file
-    public function export(Request $request){
-        if ($request->get('export-type') == "excel"){
-            return Excel::download(new \App\Exports\PDF\InvoiceExport(), Helper::GenerateFileName('invoice', ExportFormat::XLSX->value));
-        }
-        else if($request->get('export-type') == "pdf"){
-            return Excel::download(new \App\Exports\PDF\InvoiceExport(), Helper::GenerateFileName('invoice', ExportFormat::PDF->value), \Maatwebsite\Excel\Excel::DOMPDF);
-        }
     }
 }

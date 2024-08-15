@@ -14,11 +14,9 @@ Route::middleware(['auth.check', 'localization'])->prefix('/')->group(function (
         Route::get('/create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('create');
         Route::get('/show/{id}', [\App\Http\Controllers\CategoryController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [\App\Http\Controllers\CategoryController::class, 'edit'])->name('edit');
-        Route::get('/changeStatus/{id}', [\App\Http\Controllers\CategoryController::class, 'changeStatus'])->name('changeStatus');
         Route::post('/update/{id}', [\App\Http\Controllers\CategoryController::class, 'update'])->name('update');
         Route::post('/store', [\App\Http\Controllers\CategoryController::class, 'store'])->name('store');
         Route::post('/delete/{id}', [\App\Http\Controllers\CategoryController::class, 'delete'])->name('delete');
-        Route::get('/export', [\App\Http\Controllers\CategoryController::class, 'export'])->name('export');
     });
 
     Route::prefix('testimonial')->name('testimonial.')->group(function (){
@@ -26,11 +24,9 @@ Route::middleware(['auth.check', 'localization'])->prefix('/')->group(function (
         Route::get('/create', [\App\Http\Controllers\TestimonalController::class, 'create'])->name('create');
         Route::get('/show/{id}', [\App\Http\Controllers\TestimonalController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [\App\Http\Controllers\TestimonalController::class, 'edit'])->name('edit');
-        Route::get('/changeStatus/{id}', [\App\Http\Controllers\TestimonalController::class, 'changeStatus'])->name('changeStatus');
         Route::post('/update/{id}', [\App\Http\Controllers\TestimonalController::class, 'update'])->name('update');
         Route::post('/store', [\App\Http\Controllers\TestimonalController::class, 'store'])->name('store');
         Route::post('/delete/{id}', [\App\Http\Controllers\TestimonalController::class, 'delete'])->name('delete');
-        Route::get('/export', [\App\Http\Controllers\TestimonalController::class, 'export'])->name('export');
     });
 
     Route::prefix('contact')->name('contact.')->group(function (){
@@ -38,7 +34,6 @@ Route::middleware(['auth.check', 'localization'])->prefix('/')->group(function (
         Route::get('/show/{id}', [\App\Http\Controllers\ContactController::class, 'show'])->name('show');
         Route::get('/changeStatus/{id}', [\App\Http\Controllers\ContactController::class, 'changeStatus'])->name('changeStatus');
         Route::post('/delete/{id}', [\App\Http\Controllers\ContactController::class, 'delete'])->name('delete');
-        Route::get('/export', [\App\Http\Controllers\ContactController::class, 'export'])->name('export');
     });
 
 
@@ -47,11 +42,9 @@ Route::middleware(['auth.check', 'localization'])->prefix('/')->group(function (
         Route::get('/create', [\App\Http\Controllers\ProblemController::class, 'create'])->name('create');
         Route::get('/show/{id}', [\App\Http\Controllers\ProblemController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [\App\Http\Controllers\ProblemController::class, 'edit'])->name('edit');
-        Route::get('/changeStatus/{id}', [\App\Http\Controllers\ProblemController::class, 'changeStatus'])->name('changeStatus');
         Route::post('/update/{id}', [\App\Http\Controllers\ProblemController::class, 'update'])->name('update');
         Route::post('/store', [\App\Http\Controllers\ProblemController::class, 'store'])->name('store');
         Route::post('/delete/{id}', [\App\Http\Controllers\ProblemController::class, 'delete'])->name('delete');
-        Route::get('/export', [\App\Http\Controllers\ProblemController::class, 'export'])->name('export');
     });
 
 
@@ -78,12 +71,10 @@ Route::middleware(['auth.check', 'localization'])->prefix('/')->group(function (
         Route::get('/create', [\App\Http\Controllers\UserController::class, 'create'])->name('create');
         Route::get('/show/{id}', [\App\Http\Controllers\UserController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [\App\Http\Controllers\UserController::class, 'edit'])->name('edit');
-        Route::get('/changeStatus/{id}', [\App\Http\Controllers\UserController::class, 'changeStatus'])->name('changeStatus');
         Route::post('/update/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('update');
         Route::post('/store', [\App\Http\Controllers\UserController::class, 'store'])->name('store');
         Route::post('/delete/{id}', [\App\Http\Controllers\UserController::class, 'delete'])->name('delete');
-        Route::get('/export', [\App\Http\Controllers\UserController::class, 'export'])->name('export');
-    });
+   });
 
 
     Route::get('change-lang/{lang}', [\App\Http\Controllers\LangController::class, 'change'])->name('lang.change');

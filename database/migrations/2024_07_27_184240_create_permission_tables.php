@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $teams = config('permission.teams');
+        /*$teams = config('permission.teams');
         $tableNames = config('permission.table_names');
         $columnNames = config('permission.column_names');
         $pivotRole = $columnNames['role_pivot_key'] ?? 'role_id';
@@ -120,7 +120,7 @@ return new class extends Migration
 
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
-            ->forget(config('permission.cache.key'));
+            ->forget(config('permission.cache.key'));*/
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -12,20 +13,17 @@ class Category extends \App\Model implements HasMedia
     use HasFactory, InteractsWithMedia;
     protected $table = "categories";
     protected $guarded = [];
-//    public $incrementing = true;
-//    public $timestamps = true;
-    // public $translatable = ['name', 'details'];
 
-    function scopeFilter(){
-
+    function scopeFilter(Builder $builder){
+        $q = trim(request()->q);
+        $builder->orWhere('categoryName_bn', 'LIKE', "%$q%");
+        $builder->orWhere('categoryName', 'LIKE', "%$q%");
+        $builder->orderBy('id','DESC');
     }
 
-    // public function getImageAttribute(){
-    //     return $this->getMedia('*')->first()->original_url ?? null;
-    // }
+
 
     public function getImageAttribute(){
         return $this->categoryImg;
-        // return Helper::GetImage($this->categoryImg);
     }
 }

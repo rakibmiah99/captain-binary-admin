@@ -15,6 +15,14 @@ return new class extends Migration
             $table->string('title')->nullable()->change();
             $table->text('description')->nullable()->change();
         });
+        Schema::table('problems', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade')
+                ->change();
+        });
     }
 
     /**
@@ -26,5 +34,12 @@ return new class extends Migration
             $table->string('title', 200)->change();
             $table->text('description')->change();
         });
+//        Schema::table('problems', function (Blueprint $table) {
+//            $table->dropForeign(['category_id']);
+//            $table->foreign('category_id')
+//                ->references('id')
+//                ->on('categories')
+//                ->change();
+//        });
     }
 };
