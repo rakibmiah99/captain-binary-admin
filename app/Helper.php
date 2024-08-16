@@ -183,9 +183,10 @@ class Helper
 
 
     public static function FileUpload($request_key, $path){
+        $uploadPath = env("APP_ENV") == "local" ? public_path($path) : base_path($path);
         if ($file = request()->file($request_key)){
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path($path), $filename);
+            $file->move($uploadPath, $filename);
 
             // Save the file path in the database
             $photoPath = request()->root()."/$path/" . $filename;
@@ -196,7 +197,7 @@ class Helper
         }
     }
 
-    
+
 
     public static function RemoveFile($path){
         if($path){
@@ -208,14 +209,14 @@ class Helper
                 $path = null;
             }
         }
-        
-        $filePath = public_path($path);
+
+        $filePath = env("APP_ENV") == "local" ? public_path($path) : base_path($path);
 
         // Delete the file from the server
         if ($path && file_exists($filePath)) {
             unlink($filePath);
         }
-    
+
     }
 
 

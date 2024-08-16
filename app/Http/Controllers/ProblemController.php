@@ -14,6 +14,8 @@ class ProblemController extends Controller
 {
 
     public function index(Request $request){
+//        return public_path();
+//        return base_path();
         $columns = array_keys(__('db.problem'));
         $data = Problem::filter()->paginate(Helper::PerPage())->withQueryString();
         return view('problems.index', compact('data', 'columns'));
