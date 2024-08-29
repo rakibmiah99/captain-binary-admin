@@ -4,8 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Bookmark extends Model
 {
-    use HasFactory;
+    public function problem(): HasOne
+    {
+        return $this->hasOne(Problem::class,'id','problem_id');
+    }
 }

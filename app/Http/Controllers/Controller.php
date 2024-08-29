@@ -2,25 +2,11 @@
 
 namespace App\Http\Controllers;
 
-abstract class Controller
-{
-    public function successMessage($message, $route = null): \Illuminate\Http\RedirectResponse
-    {
-        if ($route){
-            return redirect()->route($route)->with('success', $message);
-        }
-        else{
-            return redirect()->back()->with('success', $message);
-        }
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-    }
-    public function errorMessage($message, $route = null): \Illuminate\Http\RedirectResponse
-    {
-        if ($route){
-            return redirect()->route($route)->with('error', $message);
-        }
-        else {
-            return redirect()->back()->with('error', $message)->withInput(request()->all());
-        }
-    }
+class Controller extends BaseController
+{
+    use AuthorizesRequests, ValidatesRequests;
 }

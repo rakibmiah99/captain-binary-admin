@@ -7,6 +7,8 @@ use Illuminate\Container\Container;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 
@@ -22,6 +24,20 @@ class Helper
 
     }
 
+
+    static public function AdminGuard()
+    {
+        return Auth::guard('admin');
+    }
+
+    static public function SendReponse($data = [], $message = '', $status = 200)
+    {
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => $data,
+        ], $status);
+    }
     static public function ConvertTo12HourFormat($time24) {
         return  date('h:i A', strtotime($time24));
     }
@@ -94,93 +110,22 @@ class Helper
         return request()->perpage ?? config('page.per_page_view');
     }
 
-    public static function PageIndex()
+    public static function SetCooke($name, $value, $minutes = 60, $path = null, $domain = null, $secure = false, $httpOnly = true)
     {
-        $page_number = request()->page ?? 1;
-        $index = ($page_number - 1)  *  self::PerPage();
-        return $index+1;
+         return $cookie = cookie($name, $value, $minutes, $path, $domain, $secure, $httpOnly);
+//        return response()->cookie($cookie);
     }
 
-
-    public static function CreatedSuccessFully($name = null): string
+    public static function GetCooke($name)
     {
-        return $name." ".__('page.created_successfully');
+        return Cookie::get($name);
     }
-    public static function UpdatedSuccessFully($name = null): string
+
+    public static function RemoveCooke($name, $path = null, $domain = null)
     {
-        return $name." ".__('page.updated_successfully');
+        $cookie = cookie()->forget($name, $path, $domain);
+//        return response()->cookie($cookie);
     }
-    public static function UpdatedFailed($name = null): string
-    {
-        return $name." ".__('page.updated_failed');
-    }
-
-    public static function DeletedSuccessFully($name = null): string
-    {
-        return $name." ".__('page.deleted_successfully');
-    }
-    public static function CantDeleteUsedInAnother($name = null): string
-    {
-        return $name." ".__('page.cant_delete');
-    }
-
-    public static function StatusChangedSuccessFully($name = null): string
-    {
-        return $name." ".__('page.status_change_successfully');
-    }
-
-    public static function HasPermission($group, $name){
-        Gate::authorize($group.".actions.".$name);
-    }
-    public static function HasPermissionView($group){
-        Gate::authorize($group.".actions.view");
-    }
-    public static function HasPermissionCreate($group){
-        Gate::authorize($group.".actions.create");
-    }
-    public static function HasPermissionUpdate($group){
-        Gate::authorize($group.".actions.update");
-    }
-    public static function HasPermissionExport($group){
-        Gate::authorize($group.".actions.export");
-    }
-    public static function HasPermissionChangeStatus($group){
-        Gate::authorize($group.".actions.change-status");
-    }
-
-    public static function HasPermissionMenu($group, $action = null){
-        $status = 0;
-        $permissions = Lang::get('permission.'.$group, [], 'en');
-        if (is_array($permissions)){
-            $actions = array_keys($permissions['actions']);
-
-            if ($action){
-                if (in_array($action, $actions)){
-                    $permission_name = $group.".actions.".$action;
-                    $status = auth()->user()->can($permission_name);
-                }
-            }
-            else{
-                for ($i = 0; $i < count($actions); $i++){
-                    $action = $actions[$i];
-                    $permission_name = $group.".actions.".$action;
-                    $can = auth()->user()->can($permission_name);
-                    if ($can){
-                        $status = 1;
-                        break;
-                    }
-                }
-            }
-
-        }
-        return $status;
-    }
-
-
-    public static function GetImage($path){
-        return env("APP_URL").$path;
-    }
-
 
     public static function FileUpload($request_key, $path){
         $uploadPath = env("APP_ENV") == "local" ? public_path($path) : base_path($path);

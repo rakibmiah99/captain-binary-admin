@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class Admin extends Authenticatable implements HasMedia
+class Admin extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles, InteractsWithMedia;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $table = "admins";
     /**
@@ -21,14 +22,7 @@ class Admin extends Authenticatable implements HasMedia
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'phone',
-        'location',
-        'website',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -57,8 +51,5 @@ class Admin extends Authenticatable implements HasMedia
 
     }
 
-    public function getImageAttribute(){
-        return auth()->user()->getMedia('*')->first()->original_url ?? null;
-    }
 
 }

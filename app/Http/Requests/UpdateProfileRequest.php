@@ -25,8 +25,7 @@ class UpdateProfileRequest extends FormRequest
             'name' => 'required',
             'website' => 'nullable',
             'location' => 'nullable',
-            'phone' => 'nullable',
-            'file' => 'nullable|mimes:jpeg,jpg,png,gif|max:10000'
+            'phone' => 'nullable'
         ];
     }
 }

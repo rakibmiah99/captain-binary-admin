@@ -8,10 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    use HasFactory;
-
+    protected $fillable = ['name','email','mobile','msg','status'];
+    protected $attributes = [
+        'status' => 'pending',
+    ];
     public function scopeFilter(Builder $builder){
-        $q = trim(request()->q);
+        $q = request()->q;
+        $q = urldecode($q);
+        $q = urldecode($q);
+        $q = trim($q);
+
         $builder->orWhere('name', 'LIKE', "%$q%");
         $builder->orWhere('email', 'LIKE', "%$q%");
         $builder->orWhere('mobile', 'LIKE', "%$q%");
